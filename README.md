@@ -14,7 +14,7 @@ QR Code : [CLICK](http://fir.im/nh4c)
 
 Change Log : [SEE](./CHANGELOG.md)
 
-![RxMarkdown.gif](https://raw.githubusercontent.com/yydcdut/RxMarkdown/master/art/rxmarkdown.gif)
+![RxMarkdown.gif](https://raw.githubusercontent.com/ameermuawiya/RxMarkdown-Modren/refs/heads/master/art/rxmarkdown.gif)
 
 # Gradle
 
