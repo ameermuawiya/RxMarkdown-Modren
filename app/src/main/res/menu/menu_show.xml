@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_rx"
+        android:title="Show Rx Mode"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_normal"
+        android:title="Show Normal Mode"
+        android:showAsAction="never" />
+
+</menu>

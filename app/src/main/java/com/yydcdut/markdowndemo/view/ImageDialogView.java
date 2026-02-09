@@ -1,24 +1,22 @@
 package com.yydcdut.markdowndemo.view;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v7.widget.PopupMenu;
+import androidx.appcompat.widget.PopupMenu;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -26,24 +24,21 @@ import com.yydcdut.markdowndemo.R;
 
 import java.io.File;
 
-/**
- * Created by yuyidong on 16/7/20.
- */
-public class ImageDialogView extends LinearLayout implements View.OnClickListener,
-        PopupMenu.OnMenuItemClickListener {
+public class ImageDialogView extends LinearLayout
+        implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
+
     private static final int REQUEST_CAMERA = 10;
     private static final int REQUEST_GALLERY = 11;
-
     private static final String DEFAULT_PATH = "drawable://" + R.mipmap.ic_launcher;
 
     private int mCurrentCameraPictureIndex = 0;
 
     private ImageView mTargetImageView;
-    private String mPath;
+    private String mPath = DEFAULT_PATH;
 
-    private EditText mWidthEditText;
-    private EditText mHeightEditText;
-    private EditText mDescriptionEditText;
+    private TextInputEditText mWidthEditText;
+    private TextInputEditText mHeightEditText;
+    private TextInputEditText mDescriptionEditText;
 
     public ImageDialogView(Context context) {
         super(context);
@@ -55,7 +50,6 @@ public class ImageDialogView extends LinearLayout implements View.OnClickListene
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public ImageDialogView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
@@ -63,20 +57,26 @@ public class ImageDialogView extends LinearLayout implements View.OnClickListene
 
     private void init(Context context) {
         View v = LayoutInflater.from(context).inflate(R.layout.dialog_image, this, true);
-        mTargetImageView = (ImageView) v.findViewById(R.id.img_image);
+
+        mTargetImageView = v.findViewById(R.id.img_image);
         mTargetImageView.setOnClickListener(this);
-        mWidthEditText = (EditText) v.findViewById(R.id.edit_width);
-        mHeightEditText = (EditText) v.findViewById(R.id.edit_height);
-        mDescriptionEditText = (EditText) v.findViewById(R.id.edit_description);
+
+        mWidthEditText = v.findViewById(R.id.edit_width);
+        mHeightEditText = v.findViewById(R.id.edit_height);
+        mDescriptionEditText = v.findViewById(R.id.edit_description);
+
         if (!ImageLoader.getInstance().isInited()) {
-            ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(mTargetImageView.getContext());
-            config.threadPriority(Thread.NORM_PRIORITY - 2);
-            config.denyCacheImageMultipleSizesInMemory();
-            config.diskCacheSize(50 * 1024 * 1024);
-            config.tasksProcessingOrder(QueueProcessingType.LIFO);
-            config.writeDebugLogs();
-            ImageLoader.getInstance().init(config.build());
+            ImageLoaderConfiguration config =
+                    new ImageLoaderConfiguration.Builder(context)
+                            .threadPriority(Thread.NORM_PRIORITY - 2)
+                            .denyCacheImageMultipleSizesInMemory()
+                            .diskCacheSize(50 * 1024 * 1024)
+                            .tasksProcessingOrder(QueueProcessingType.LIFO)
+                            .build();
+            ImageLoader.getInstance().init(config);
         }
+
+        clear();
     }
 
     @Override
@@ -89,51 +89,74 @@ public class ImageDialogView extends LinearLayout implements View.OnClickListene
     }
 
     public void handleResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
-            mPath = "file:/" + getContext().getExternalCacheDir().getAbsolutePath() + File.separator + "tmp" + mCurrentCameraPictureIndex + ".jpg";
+        if (resultCode != Activity.RESULT_OK) return;
+
+        if (requestCode == REQUEST_CAMERA) {
+            File file =
+                    new File(
+                            getContext().getExternalCacheDir(),
+                            "tmp" + mCurrentCameraPictureIndex + ".jpg");
+            mPath = "file:/" + file.getAbsolutePath();
             ImageLoader.getInstance().displayImage(mPath, mTargetImageView);
             mCurrentCameraPictureIndex++;
-        } else if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
-            if (data == null) {
-                return;
-            }
+
+        } else if (requestCode == REQUEST_GALLERY && data != null) {
             Uri uri = data.getData();
-            String[] proj = {MediaStore.Images.Media.DATA};
-            Cursor cursor = mTargetImageView.getContext().getContentResolver().query(uri, proj, null, null, null);
-            if (cursor.moveToFirst()) {
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                mPath = "file:/" + cursor.getString(column_index);
+            if (uri == null) return;
+
+            String[] projection = {MediaStore.Images.Media.DATA};
+            Cursor cursor =
+                    getContext()
+                            .getContentResolver()
+                            .query(uri, projection, null, null, null);
+
+            if (cursor != null) {
+                try {
+                    if (cursor.moveToFirst()) {
+                        int index =
+                                cursor.getColumnIndexOrThrow(
+                                        MediaStore.Images.Media.DATA);
+                        mPath = "file:/" + cursor.getString(index);
+                        ImageLoader.getInstance().displayImage(mPath, mTargetImageView);
+                    }
+                } finally {
+                    cursor.close();
+                }
             }
-            cursor.close();
-            ImageLoader.getInstance().displayImage(mPath, mTargetImageView);
         }
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        Activity activity = null;
-        if (getContext() instanceof Activity) {
-            activity = (Activity) getContext();
-        } else {
-            Log.e("yuyidong", "not activity");
+        if (!(getContext() instanceof Activity)) {
+            Log.e("ImageDialogView", "Context is not Activity");
             return false;
         }
-        switch (item.getItemId()) {
-            case R.id.action_gallery:
-                Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                activity.startActivityForResult(albumIntent, REQUEST_GALLERY);
-                break;
-            case R.id.action_camera:
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                File file = new File(getContext().getExternalCacheDir().getAbsolutePath() + File.separator + "tmp" + mCurrentCameraPictureIndex + ".jpg");
-                if (file.exists()) {
-                    file.delete();
-                }
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                activity.startActivityForResult(intent, REQUEST_CAMERA);
-                break;
+
+        Activity activity = (Activity) getContext();
+
+        if (item.getItemId() == R.id.action_gallery) {
+            Intent intent =
+                    new Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType("image/*");
+            activity.startActivityForResult(intent, REQUEST_GALLERY);
+            return true;
+
+        } else if (item.getItemId() == R.id.action_camera) {
+            File file =
+                    new File(
+                            getContext().getExternalCacheDir(),
+                            "tmp" + mCurrentCameraPictureIndex + ".jpg");
+            if (file.exists()) file.delete();
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+            activity.startActivityForResult(intent, REQUEST_CAMERA);
+            return true;
         }
+
         return false;
     }
 
@@ -141,15 +164,16 @@ public class ImageDialogView extends LinearLayout implements View.OnClickListene
         ImageLoader.getInstance().displayImage(DEFAULT_PATH, mTargetImageView);
         mWidthEditText.setText("200");
         mHeightEditText.setText("200");
+        mDescriptionEditText.setText("");
         mPath = DEFAULT_PATH;
     }
 
     public int getImageWidth() {
-        return Integer.parseInt(mWidthEditText.getText().toString());
+        return parseIntSafe(mWidthEditText.getText());
     }
 
     public int getImageHeight() {
-        return Integer.parseInt(mHeightEditText.getText().toString());
+        return parseIntSafe(mHeightEditText.getText());
     }
 
     public String getPath() {
@@ -157,8 +181,16 @@ public class ImageDialogView extends LinearLayout implements View.OnClickListene
     }
 
     public String getDescription() {
-        return mDescriptionEditText.getText().toString();
+        return mDescriptionEditText.getText() != null
+                ? mDescriptionEditText.getText().toString()
+                : "";
     }
 
-
+    private int parseIntSafe(CharSequence value) {
+        try {
+            return Integer.parseInt(String.valueOf(value));
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

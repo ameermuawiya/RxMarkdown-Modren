@@ -16,7 +16,7 @@
 package com.yydcdut.markdown.utils;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;

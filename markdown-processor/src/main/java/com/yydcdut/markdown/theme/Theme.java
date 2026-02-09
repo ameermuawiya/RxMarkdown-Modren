@@ -15,7 +15,7 @@
  */
 package com.yydcdut.markdown.theme;
 
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 /**
  * The  theme for code syntax, high light programming language

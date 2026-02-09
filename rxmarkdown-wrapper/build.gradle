@@ -1,14 +1,16 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+}
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-    resourcePrefix "wrapper"
+    namespace "com.yydcdut.rxmarkdown.wrapper"
+    compileSdk 35
 
+    resourcePrefix "wrapper_"
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdk 23
+        targetSdk 34
         versionCode 1
         versionName "1.0"
     }
@@ -16,19 +18,25 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles(
+                getDefaultProguardFile('proguard-android-optimize.txt'),
+                'proguard-rules.pro'
+            )
         }
     }
-
 }
 
 dependencies {
-//    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:support-annotations:${rootProject.ext.supportVersion}"
-    implementation 'io.reactivex:rxjava:1.1.5'
-    implementation 'io.reactivex:rxandroid:1.2.0'
-    implementation project(':markdown-processor')
+
+    // AndroidX annotations
+    implementation "androidx.annotation:annotation:1.9.1"
+
+    // RxJava modern stack
+    implementation "io.reactivex.rxjava3:rxjava:3.1.12"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.2"
+
+    // Internal dependency
+    implementation project(":markdown-processor")
 }
 
-apply from: './publish.gradle'
-
+apply from: "./publish.gradle"

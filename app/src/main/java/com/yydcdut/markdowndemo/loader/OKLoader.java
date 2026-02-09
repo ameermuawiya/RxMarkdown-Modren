@@ -1,12 +1,12 @@
 package com.yydcdut.markdowndemo.loader;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import com.yydcdut.rxmarkdown.loader.RxMDImageLoader;
 
 import java.io.ByteArrayOutputStream;

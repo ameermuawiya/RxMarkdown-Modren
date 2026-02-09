@@ -15,7 +15,7 @@
  */
 package com.yydcdut.markdown.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Pair;

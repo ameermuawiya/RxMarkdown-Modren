@@ -1,67 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/img_image"
+        android:layout_width="192dp"
         android:layout_height="192dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"/>
 
-        <ImageView
-            android:id="@+id/img_image"
-            android:layout_width="192dp"
-            android:layout_height="192dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"/>
-
-    </LinearLayout>
-
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="12dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_width"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="width"
+            android:hint="Width"
             android:inputType="number"
-            android:text="200"
-            android:textColor="@android:color/black"/>
-    </android.support.design.widget.TextInputLayout>
+            android:text="200"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="8dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_height"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="height"
+            android:hint="Height"
             android:inputType="number"
-            android:text="200"
-            android:textColor="@android:color/black"/>
-    </android.support.design.widget.TextInputLayout>
+            android:text="200"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="8dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="描述"
-            android:textColor="@android:color/black"/>
-    </android.support.design.widget.TextInputLayout>
+            android:hint="Description"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 </LinearLayout>

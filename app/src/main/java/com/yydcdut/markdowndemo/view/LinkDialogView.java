@@ -1,22 +1,18 @@
 package com.yydcdut.markdowndemo.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.yydcdut.markdowndemo.R;
 
-/**
- * Created by yuyidong on 16/7/21.
- */
 public class LinkDialogView extends LinearLayout {
-    private EditText mDescriptionEditText;
-    private EditText mLinkEditText;
+
+    private TextInputEditText mDescriptionEditText;
+    private TextInputEditText mLinkEditText;
 
     public LinkDialogView(Context context) {
         super(context);
@@ -28,7 +24,6 @@ public class LinkDialogView extends LinearLayout {
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public LinkDialogView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
@@ -36,8 +31,8 @@ public class LinkDialogView extends LinearLayout {
 
     private void init(Context context) {
         View v = LayoutInflater.from(context).inflate(R.layout.dialog_link, this, true);
-        mDescriptionEditText = (EditText) v.findViewById(R.id.edit_description_link);
-        mLinkEditText = (EditText) v.findViewById(R.id.edit_link);
+        mDescriptionEditText = v.findViewById(R.id.edit_description_link);
+        mLinkEditText = v.findViewById(R.id.edit_link);
     }
 
     public void clear() {
@@ -46,12 +41,14 @@ public class LinkDialogView extends LinearLayout {
     }
 
     public String getDescription() {
-        return mDescriptionEditText.getText().toString();
+        return mDescriptionEditText.getText() != null
+                ? mDescriptionEditText.getText().toString()
+                : "";
     }
 
     public String getLink() {
-        return mLinkEditText.getText().toString();
+        return mLinkEditText.getText() != null
+                ? mLinkEditText.getText().toString()
+                : "";
     }
-
-
 }

@@ -16,7 +16,7 @@
 package com.yydcdut.rxmarkdown;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.yydcdut.markdown.MarkdownConfiguration;
 import com.yydcdut.markdown.MarkdownEditText;
@@ -24,8 +24,8 @@ import com.yydcdut.markdown.syntax.SyntaxFactory;
 import com.yydcdut.markdown.syntax.edit.EditFactory;
 import com.yydcdut.markdown.syntax.text.TextFactory;
 
-import rx.Observable;
-import rx.functions.Func1;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Function;
 
 /**
  * RxMarkdown for TextView:
@@ -120,9 +120,9 @@ public class RxMarkdown {
     public Observable<CharSequence> intoObservable() {
         if (mContent != null) {
             return Observable.just(mContent)
-                    .map(new Func1<String, CharSequence>() {
+                    .map(new Function<String, CharSequence>() {
                         @Override
-                        public CharSequence call(String s) {
+                        public CharSequence apply(String s) {
                             if (mSyntaxFactory != null) {
                                 MarkdownConfiguration config = getMarkdownConfiguration();
                                 CharSequence charSequence = mSyntaxFactory.parse(s, config);
@@ -133,9 +133,9 @@ public class RxMarkdown {
                     });
         } else {
             return Observable.just(mMarkdownEditText)
-                    .map(new Func1<MarkdownEditText, CharSequence>() {
+                    .map(new Function<MarkdownEditText, CharSequence>() {
                         @Override
-                        public CharSequence call(MarkdownEditText markdownEditText) {
+                        public CharSequence apply(MarkdownEditText markdownEditText) {
                             if (mSyntaxFactory == null) {
                                 return markdownEditText.getText();
                             }

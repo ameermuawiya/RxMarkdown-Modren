@@ -15,7 +15,7 @@
  */
 package com.yydcdut.markdown.syntax;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.yydcdut.markdown.MarkdownConfiguration;
 

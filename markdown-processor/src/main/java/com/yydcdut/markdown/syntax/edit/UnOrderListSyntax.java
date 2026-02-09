@@ -16,7 +16,7 @@
 package com.yydcdut.markdown.syntax.edit;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.Spannable;
 

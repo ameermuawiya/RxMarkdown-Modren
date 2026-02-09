@@ -180,7 +180,7 @@ RxMDConfiguration rxMDConfiguration = new RxMDConfiguration.Builder(context)
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(new Subscriber<CharSequence>() {
               @Override
-              public void onCompleted() {}
+              public void onComplete() {}
 
               @Override
               public void onError(Throwable e) {}

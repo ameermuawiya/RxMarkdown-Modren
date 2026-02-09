@@ -1,68 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:liftOnScroll="false">
 
-        <android.support.v7.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            android:layout_height="?attr/actionBarSize" />
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit_show"
+            style="@style/Widget.Material3Expressive.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Edit and Show"
-            android:textAllCaps="false"/>
+            android:text="Edit and Show" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_compare"
+            style="@style/Widget.Material3Expressive.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Compare"
-            android:textAllCaps="false"/>
+            android:layout_marginTop="8dp"
+            android:text="Compare" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit_show_rx"
+            style="@style/Widget.Material3Expressive.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Edit and Show with RxJava"
-            android:textAllCaps="false"/>
+            android:layout_marginTop="16dp"
+            android:text="Edit and Show with RxJava" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_compare_rx"
+            style="@style/Widget.Material3Expressive.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Compare with RxJava"
-            android:textAllCaps="false"/>
+            android:layout_marginTop="8dp"
+            android:text="Compare with RxJava" />
+
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
-
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

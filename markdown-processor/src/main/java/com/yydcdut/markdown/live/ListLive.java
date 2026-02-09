@@ -15,7 +15,7 @@
  */
 package com.yydcdut.markdown.live;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextUtils;

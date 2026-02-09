@@ -23,7 +23,6 @@
                 android:id="@+id/edit_rx"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@null"
                 android:gravity="left|top"
                 android:visibility="gone"/>
 
@@ -31,7 +30,6 @@
                 android:id="@+id/edit_md"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@null"
                 android:gravity="left|top"
                 android:visibility="gone"/>
         </FrameLayout>
