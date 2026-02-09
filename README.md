@@ -8,7 +8,7 @@ It is backed by RxJava, implementing complicated APIs as handy reactive observab
 
 中文：[README-zh-rCN.md](./README-zh-rCN.md)
 
-Demo apk : [DOWNLOAD](https://github.com/yydcdut/RxMarkdown/blob/master/apk/demo.apk?raw=true)
+Demo apk : [DOWNLOAD](https://github.com/ameermuawiya/RxMarkdown-Modren/raw/refs/heads/master/Apk/demo.apk)
 
 QR Code : [CLICK](http://fir.im/nh4c)
 
